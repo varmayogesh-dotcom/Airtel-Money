@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Airtel Money — Customer 360 (Demo)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --am-red: #d40000;
+      --am-red-dark: #b00000;
+      --am-red-soft: #fde8e8;
+      --am-charcoal: #374150;
+      --am-black: #1a1a1a;
+      --am-grey: #6b7280;
+      --am-border: #e5e7eb;
+      --am-bg: #f7f7f8;
+      --am-white: #ffffff;
+      --am-success: #0d7a4a;
+      --am-warning: #b45309;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "DM Sans", "Segoe UI", system-ui, sans-serif;
+      background: var(--am-bg);
+      color: var(--am-charcoal);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .demo-banner {
+      background: var(--am-charcoal);
+      color: #fff;
+      text-align: center;
+      padding: 6px 12px;
+      font-size: 11px;
+      letter-spacing: 0.02em;
+    }
+
+    header {
+      background: var(--am-red);
+      color: var(--am-white);
+      padding: 14px 20px 16px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand-block h1 {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .brand-block h1 span.money {
+      font-weight: 400;
+      opacity: 0.95;
+    }
+
+    .tagline {
+      margin-top: 6px;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      opacity: 0.92;
+    }
+
+    .call-chip {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 8px;
+      padding: 8px 12px;
+      min-width: 160px;
+      font-size: 11px;
+    }
+
+    .call-chip strong { display: block; font-size: 10px; opacity: 0.85; margin-bottom: 2px; }
+
+    main { padding: 16px 20px 24px; max-width: 960px; margin: 0 auto; }
+
+    .hero {
+      background: var(--am-white);
+      border-radius: 12px;
+      border: 1px solid var(--am-border);
+      padding: 16px 18px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 14px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+
+    .hero h2 {
+      font-size: 20px;
+      color: var(--am-black);
+      font-weight: 700;
+    }
+
+    .hero .meta { color: var(--am-grey); margin-top: 4px; font-size: 12px; }
+
+    .badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+
+    .badge {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .badge-gold { background: #fef3c7; color: #92400e; }
+    .badge-kyc { background: var(--am-red-soft); color: var(--am-red-dark); }
+    .badge-active { background: #d1fae5; color: var(--am-success); }
+
+    .balance-card {
+      text-align: right;
+      padding-left: 16px;
+      border-left: 3px solid var(--am-red);
+    }
+
+    .balance-card .label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--am-grey);
+      font-weight: 600;
+    }
+
+    .balance-card .amount {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--am-red);
+      margin-top: 2px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    @media (max-width: 720px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      .hero { grid-template-columns: 1fr; }
+      .balance-card { border-left: none; border-top: 3px solid var(--am-red); padding-left: 0; padding-top: 12px; text-align: left; }
+    }
+
+    section.panel {
+      background: var(--am-white);
+      border: 1px solid var(--am-border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+
+    section.panel h3 {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--am-white);
+      background: var(--am-charcoal);
+      padding: 10px 14px;
+    }
+
+    section.panel h3.red { background: var(--am-red); }
+
+    .panel-body { padding: 12px 14px; }
+
+    dl.facts {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 8px 12px;
+    }
+
+    dl.facts dt {
+      color: var(--am-grey);
+      font-weight: 500;
+    }
+
+    dl.facts dd { color: var(--am-black); font-weight: 500; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    th {
+      text-align: left;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--am-grey);
+      padding: 8px 6px;
+      border-bottom: 2px solid var(--am-border);
+    }
+
+    td {
+      padding: 10px 6px;
+      border-bottom: 1px solid var(--am-border);
+      vertical-align: top;
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    .case-id { color: var(--am-red); font-weight: 700; }
+
+    .status-resolved { color: var(--am-success); font-weight: 600; }
+    .status-closed { color: var(--am-grey); font-weight: 600; }
+
+    .txn-debit { color: var(--am-black); }
+    .txn-credit { color: var(--am-success); }
+
+    .alert-info {
+      background: var(--am-red-soft);
+      border-left: 4px solid var(--am-red);
+      padding: 10px 12px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 12px;
+      font-size: 12px;
+    }
+
+    .collections-box {
+      background: linear-gradient(135deg, #fff 0%, var(--am-red-soft) 100%);
+      border: 1px solid #f5c2c2;
+      border-radius: 10px;
+      padding: 12px 14px;
+    }
+
+    .collections-box h4 {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--am-red-dark);
+      margin-bottom: 8px;
+    }
+
+    footer.note {
+      text-align: center;
+      font-size: 10px;
+      color: var(--am-grey);
+      padding: 8px;
+    }
+
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <div class="demo-banner">Genesys Cloud demo · Sample CRM screen pop · Not connected to live Airtel Money systems</div>
+
+  <header>
+    <div class="brand-block">
+      <h1>Airtel <span class="money">Money</span></h1>
+      <div class="tagline">INSTANT. SECURE. BORDERLESS.</div>
+    </div>
+    <div class="call-chip" id="callContext">
+      <strong>Active interaction</strong>
+      <span id="callAni">ANI: —</span><br />
+      <span id="callQueue">Queue: —</span>
+    </div>
+  </header>
+
+  <main id="app">
+    <!-- populated by script -->
+  </main>
+
+  <footer class="note">Demo profile for Rajesh Sharma · Host via HTTPS for Genesys Client Application</footer>
+
+  <script>
+    const PROFILE = {
+      customerId: "CUST-7843291",
+      fullName: "Rajesh Sharma",
+      msisdn: "+91 98103 01934",
+      msisdnNormalized: "919810301934",
+      email: "rajesh.sharma@example.com",
+      walletId: "AM-IN-7843291",
+      walletStatus: "Active",
+      kycLevel: "Full KYC",
+      kycVerifiedOn: "2024-06-12",
+      customerSegment: "Gold",
+      preferredLanguage: "English / Hindi",
+      registeredCity: "Gurugram, Haryana",
+      walletBalanceDisplay: "₹ 12,450.75",
+      dailyLimit: "₹ 1,00,000",
+      monthlyTxnVolume: "₹ 4.2 L (last 30 days)",
+      openAlerts: [{ type: "Info", text: "Customer opted in for SMS transaction alerts." }],
+      previousCases: [
+        {
+          caseId: "CS-2026-88421",
+          opened: "18 Oct 2026, 09:14",
+          category: "Service — Failed transaction",
+          status: "Resolved",
+          summary: "UPI transfer of ₹2,000 showed failed; reversed within 24h.",
+          wrapUp: "Txn reversed — ref UTIB0009281"
+        },
+        {
+          caseId: "CS-2026-77102",
+          opened: "02 Sep 2026, 14:20",
+          category: "Service — Wallet limit",
+          status: "Resolved",
+          summary: "Temporary daily limit increase for festival period.",
+          wrapUp: "7-day limit boost — auto reverted"
+        },
+        {
+          caseId: "CS-2026-65019",
+          opened: "21 Jul 2026, 11:05",
+          category: "Collections — Reminder",
+          status: "Closed",
+          summary: "Micro-loan instalment reminder; PTP on due date.",
+          wrapUp: "PTP 25-Jul-2026 — ₹ 1,850"
+        }
+      ],
+      recentTransactions: [
+        { date: "28 Oct 2026", type: "Debit", amount: "₹ 450.00", counterparty: "Big Bazaar — Gurgaon", status: "Success", ref: "TXN-AM-99281734" },
+        { date: "27 Oct 2026", type: "Credit", amount: "₹ 2,000.00", counterparty: "Reversal — Failed UPI", status: "Success", ref: "TXN-AM-99280102" },
+        { date: "26 Oct 2026", type: "Debit", amount: "₹ 1,850.00", counterparty: "Loan EMI — Airtel Finance", status: "Success", ref: "TXN-AM-99277891" }
+      ],
+      collections: {
+        product: "Airtel Money Micro-Loan",
+        outstanding: "₹ 8,200.00",
+        nextDueDate: "05 Nov 2026",
+        nextDueAmount: "₹ 1,850.00",
+        daysPastDue: 0,
+        lastContact: "02 Sep 2026 — PTP recorded"
+      },
+      matchAniPatterns: ["919810301934", "9810301934", "+919810301934", "09810301934"]
+    };
+
+    function normalizePhone(v) {
+      return (v || "").replace(/\D/g, "").replace(/^0/, "");
+    }
+
+    function shouldShowRajesh(ani) {
+      const n = normalizePhone(ani);
+      if (!n) return true;
+      return PROFILE.matchAniPatterns.some((p) => normalizePhone(p) === n || n.endsWith(normalizePhone(p).slice(-10)));
+    }
+
+    function getQueryParams() {
+      const q = new URLSearchParams(window.location.search);
+      return {
+        ani: q.get("ani") || q.get("ANI") || q.get("phone") || q.get("msisdn") || "",
+        queue: q.get("queue") || q.get("queueName") || "",
+        interactionId: q.get("interactionId") || q.get("conversationId") || ""
+      };
+    }
+
+    function statusClass(s) {
+      if (s === "Resolved") return "status-resolved";
+      return "status-closed";
+    }
+
+    function render(p, ctx) {
+      const alerts = p.openAlerts.map((a) => `<div class="alert-info">${a.text}</div>`).join("");
+      const cases = p.previousCases
+        .map(
+          (c) => `<tr>
+          <td><span class="case-id">${c.caseId}</span><br /><small>${c.opened}</small></td>
+          <td>${c.category}<br /><small>${c.summary}</small></td>
+          <td class="${statusClass(c.status)}">${c.status}</td>
+          <td><small>${c.wrapUp}</small></td>
+        </tr>`
+        )
+        .join("");
+      const txns = p.recentTransactions
+        .map(
+          (t) => `<tr>
+          <td>${t.date}</td>
+          <td class="${t.type === "Credit" ? "txn-credit" : "txn-debit"}">${t.type}</td>
+          <td><strong>${t.amount}</strong></td>
+          <td>${t.counterparty}</td>
+          <td>${t.status}</td>
+        </tr>`
+        )
+        .join("");
+
+      document.getElementById("app").innerHTML = `
+        ${alerts}
+        <div class="hero">
+          <div>
+            <h2>${p.fullName}</h2>
+            <div class="meta">${p.msisdn} · ${p.email}<br />Wallet ${p.walletId} · ${p.registeredCity}</div>
+            <div class="badges">
+              <span class="badge badge-gold">${p.customerSegment}</span>
+              <span class="badge badge-kyc">${p.kycLevel}</span>
+              <span class="badge badge-active">${p.walletStatus}</span>
+            </div>
+          </div>
+          <div class="balance-card">
+            <div class="label">Wallet balance</div>
+            <div class="amount">${p.walletBalanceDisplay}</div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <section class="panel">
+            <h3>Customer profile</h3>
+            <div class="panel-body">
+              <dl class="facts">
+                <dt>Customer ID</dt><dd>${p.customerId}</dd>
+                <dt>KYC since</dt><dd>${p.kycVerifiedOn}</dd>
+                <dt>Language</dt><dd>${p.preferredLanguage}</dd>
+                <dt>Daily limit</dt><dd>${p.dailyLimit}</dd>
+                <dt>30-day volume</dt><dd>${p.monthlyTxnVolume}</dd>
+                <dt>Interaction</dt><dd>${ctx.interactionId || "—"}</dd>
+              </dl>
+            </div>
+          </section>
+          <section class="panel">
+            <h3 class="red">Collections snapshot</h3>
+            <div class="panel-body">
+              <div class="collections-box">
+                <h4>${p.collections.product}</h4>
+                <dl class="facts">
+                  <dt>Outstanding</dt><dd>${p.collections.outstanding}</dd>
+                  <dt>Next due</dt><dd>${p.collections.nextDueDate} · ${p.collections.nextDueAmount}</dd>
+                  <dt>Days past due</dt><dd>${p.collections.daysPastDue}</dd>
+                  <dt>Last contact</dt><dd>${p.collections.lastContact}</dd>
+                </dl>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <section class="panel">
+          <h3>Previous cases</h3>
+          <div class="panel-body">
+            <table>
+              <thead><tr><th>Case</th><th>Category / summary</th><th>Status</th><th>Outcome</th></tr></thead>
+              <tbody>${cases}</tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h3>Recent transactions</h3>
+          <div class="panel-body">
+            <table>
+              <thead><tr><th>Date</th><th>Type</th><th>Amount</th><th>Counterparty</th><th>Status</th></tr></thead>
+              <tbody>${txns}</tbody>
+            </table>
+          </div>
+        </section>
+      `;
+    }
+
+    function updateCallContext(ctx) {
+      document.getElementById("callAni").textContent = "ANI: " + (ctx.ani || "Demo caller");
+      document.getElementById("callQueue").textContent = "Queue: " + (ctx.queue || "Airtel Money — Service");
+    }
+
+    function initFromUrl() {
+      const ctx = getQueryParams();
+      updateCallContext(ctx);
+      if (shouldShowRajesh(ctx.ani)) render(PROFILE, ctx);
+    }
+
+    function initGenesysEmbed() {
+      if (typeof window.purecloud === "undefined") return;
+      try {
+        const client = window.purecloud({});
+        client.subscribe(["interaction"], (data) => {
+          const ix = data && data.data;
+          if (!ix) return;
+          const ani =
+            (ix.participants && ix.participants[0] && ix.participants[0].ani) ||
+            ix.ani ||
+            "";
+          const queue =
+            (ix.segments && ix.segments[0] && ix.segments[0].queueName) ||
+            ix.queueName ||
+            "";
+          const interactionId = ix.id || ix.conversationId || "";
+          updateCallContext({ ani, queue, interactionId });
+          if (shouldShowRajesh(ani)) render(PROFILE, { ani, queue, interactionId });
+        });
+      } catch (e) {
+        console.warn("Genesys embed init skipped", e);
+      }
+    }
+
+    window.addEventListener("message", (event) => {
+      try {
+        const msg = typeof event.data === "string" ? JSON.parse(event.data) : event.data;
+        if (!msg || !msg.type) return;
+        if (msg.type === "screenPop" || msg.type === "interactionSubscription") {
+          const d = msg.data || msg;
+          const ani = d.ani || d.address || d.from || "";
+          updateCallContext({ ani, queue: d.queue || "", interactionId: d.id || "" });
+          if (shouldShowRajesh(ani)) render(PROFILE, { ani, queue: d.queue || "", interactionId: d.id || "" });
+        }
+      } catch (_) { /* ignore non-JSON */ }
+    });
+
+    initFromUrl();
+    window.addEventListener("load", () => {
+      setTimeout(initGenesysEmbed, 500);
+    });
+  </script>
+  <!-- Optional: load Genesys embed SDK when hosted as Client Application -->
+  <!-- <script src="https://sdk-cdn.mypurecloud.com/javascript/143.0.0/purecloud.min.js"></script> -->
+</body>
+</html>
